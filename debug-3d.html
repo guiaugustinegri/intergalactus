@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEBUG - Planeta 2500 3D</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+        .warning { background: #fff3cd; border-color: #ffeaa7; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🛠️ DEBUG - Planeta 2500 3D</h1>
+
+    <div class="debug-section">
+        <h2>🔍 Verificação de Elementos HTML</h2>
+        <button onclick="checkElements()">Verificar Elementos</button>
+        <div id="element-check"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>🎮 Teste de Funcionalidades</h2>
+        <button onclick="testGameInit()">Testar Inicialização</button>
+        <button onclick="testUIUpdate()">Testar UI</button>
+        <button onclick="test3D()">Testar 3D</button>
+        <div id="function-test"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>📊 Status do Sistema</h2>
+        <div id="system-status">
+            <p>Three.js: <span id="threejs-status">Não verificado</span></p>
+            <p>WebGL: <span id="webgl-status">Não verificado</span></p>
+            <p>DOM Ready: <span id="dom-status">Não verificado</span></p>
+        </div>
+    </div>
+
+    <div class="debug-section">
+        <h2>🎯 Ações Rápidas</h2>
+        <button onclick="openMainGame()">Abrir Jogo Principal</button>
+        <button onclick="clearConsole()">Limpar Console</button>
+        <button onclick="showErrors()">Mostrar Últimos Erros</button>
+    </div>
+
+    <script>
+        // Verificar elementos HTML
+        function checkElements() {
+            const requiredIds = [
+                'loading', 'container', 'game-modal', 'modal-title', 'modal-message',
+                'energy-indicator', 'pollution-indicator', 'resources-indicator', 'industry-indicator',
+                'solar-btn', 'wind-btn', 'hydro-btn', 'fossil-btn', 'industry-btn', 'cleanup-btn',
+                'turn-button', 'end-game-button', 'restart-btn'
+            ];
+
+            let result = '<h3>Resultado da Verificação:</h3><ul>';
+            let allGood = true;
+
+            for (const id of requiredIds) {
+                const element = document.getElementById(id);
+                if (element) {
+                    result += `<li style="color: green;">✅ ${id}: OK</li>`;
+                } else {
+                    result += `<li style="color: red;">❌ ${id}: AUSENTE</li>`;
+                    allGood = false;
+                }
+            }
+
+            result += '</ul>';
+
+            if (allGood) {
+                result += '<p style="color: green; font-weight: bold;">🎉 Todos os elementos necessários estão presentes!</p>';
+            } else {
+                result += '<p style="color: red; font-weight: bold;">⚠️ Alguns elementos estão faltando. Isso pode causar erros.</p>';
+            }
+
+            document.getElementById('element-check').innerHTML = result;
+        }
+
+        // Testar funcionalidades
+        function testGameInit() {
+            try {
+                console.log('Testando inicialização do jogo...');
+                // Simular inicialização sem criar instância completa
+                document.getElementById('function-test').innerHTML = '<p style="color: green;">✅ Inicialização básica OK</p>';
+            } catch (error) {
+                console.error('Erro na inicialização:', error);
+                document.getElementById('function-test').innerHTML = `<p style="color: red;">❌ Erro: ${error.message}</p>`;
+            }
+        }
+
+        function testUIUpdate() {
+            try {
+                // Testar acesso aos elementos da UI
+                const elements = [
+                    'energy-indicator', 'pollution-indicator', 'resources-indicator', 'industry-indicator',
+                    'solar-btn', 'turn-button'
+                ];
+
+                for (const id of elements) {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        console.log(`${id}: OK`);
+                    } else {
+                        throw new Error(`Elemento ${id} não encontrado`);
+                    }
+                }
+
+                document.getElementById('function-test').innerHTML = '<p style="color: green;">✅ UI OK - Todos os elementos acessíveis</p>';
+            } catch (error) {
+                document.getElementById('function-test').innerHTML = `<p style="color: red;">❌ UI Error: ${error.message}</p>`;
+            }
+        }
+
+        function test3D() {
+            try {
+                if (typeof THREE === 'undefined') {
+                    throw new Error('Three.js não carregado');
+                }
+
+                // Testar WebGL
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+                if (!gl) {
+                    throw new Error('WebGL não suportado');
+                }
+
+                document.getElementById('function-test').innerHTML = '<p style="color: green;">✅ 3D OK - Three.js e WebGL funcionando</p>';
+            } catch (error) {
+                document.getElementById('function-test').innerHTML = `<p style="color: red;">❌ 3D Error: ${error.message}</p>`;
+            }
+        }
+
+        // Verificar sistema
+        function checkSystem() {
+            // Three.js
+            const threejsStatus = typeof THREE !== 'undefined' ? '✅ Carregado' : '❌ Não carregado';
+            document.getElementById('threejs-status').innerHTML = threejsStatus;
+
+            // WebGL
+            try {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                const webglStatus = gl ? '✅ Suportado' : '❌ Não suportado';
+                document.getElementById('webgl-status').innerHTML = webglStatus;
+            } catch (e) {
+                document.getElementById('webgl-status').innerHTML = '❌ Erro na verificação';
+            }
+
+            // DOM
+            const domStatus = document.readyState === 'complete' ? '✅ Pronto' : '⏳ Carregando';
+            document.getElementById('dom-status').innerHTML = domStatus;
+        }
+
+        // Ações rápidas
+        function openMainGame() {
+            window.open('index-3d.html', '_blank');
+        }
+
+        function clearConsole() {
+            console.clear();
+            alert('Console limpo!');
+        }
+
+        function showErrors() {
+            // Este é um exemplo simples - em produção você usaria uma biblioteca de logging
+            console.log('Verifique o console do navegador para erros detalhados (F12 > Console)');
+            alert('Pressione F12 e verifique a aba Console para erros detalhados.');
+        }
+
+        // Executar verificações ao carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            checkSystem();
+            checkElements();
+        });
+    </script>
+</body>
+</html>

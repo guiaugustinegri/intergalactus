@@ -1,0 +1,57 @@
+# Arquivos temporários
+*.tmp
+*.temp
+*.log
+*.cache
+
+# Diretórios de cache e build
+node_modules/
+dist/
+build/
+.cache/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Arquivos de IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos de backup
+*~
+*.bak
+*.backup
+
+# Arquivos de configuração local
+.env
+.env.local
+.env.*.local
+
+# Arquivos Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Servidor HTTP Python
+nohup.out
+python_server.log
+
+# Arquivos de save do jogo (opcional - descomente se quiser versionar)
+# *.save
+# game_save_*.json
+
+# Arquivos de debug
+debug.log
+console.log

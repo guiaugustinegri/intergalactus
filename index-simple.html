@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planeta 2500 - Versão Simples</title>
+    <link rel="stylesheet" href="styles-simple.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Cabeçalho simples -->
+        <header id="game-header">
+            <h1>🌍 Planeta 2500</h1>
+            <h2>Versão Super Simples! 😊</h2>
+        </header>
+
+        <!-- Status principal -->
+        <div id="status-section">
+            <div class="status-card">
+                <h3>🎯 Objetivo</h3>
+                <p id="objective-text">Sobreviva por 10 turnos e mantenha o planeta saudável!</p>
+            </div>
+
+            <div class="status-card">
+                <h3>📊 Status Atual</h3>
+                <div class="status-indicators">
+                    <div class="indicator">
+                        <span class="indicator-label">🔋 Energia</span>
+                        <div class="progress-bar">
+                            <div id="energy-bar" class="progress-fill energy-fill"></div>
+                        </div>
+                        <span id="energy-text" class="indicator-value">50/50 MW</span>
+                    </div>
+
+                    <div class="indicator">
+                        <span class="indicator-label">🌡️ Poluição</span>
+                        <div class="progress-bar">
+                            <div id="pollution-bar" class="progress-fill pollution-fill"></div>
+                        </div>
+                        <span id="pollution-text" class="indicator-value">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <h3>💰 Recursos</h3>
+                <div class="resource-display">
+                    <span class="resource-label">Dinheiro:</span>
+                    <span id="money-text" class="resource-value">$1000</span>
+                </div>
+                <div class="resource-display">
+                    <span class="resource-label">Turno:</span>
+                    <span id="turn-text" class="resource-value">1 / 10</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ações disponíveis -->
+        <div id="actions-section">
+            <h3>🛠️ Suas Ações</h3>
+
+            <div class="action-buttons">
+                <button id="solar-btn" class="action-button solar-button">
+                    <div class="action-icon">☀️</div>
+                    <div class="action-content">
+                        <h4>Adicionar Energia Solar</h4>
+                        <p>Gera energia limpa! Custa $200</p>
+                    </div>
+                </button>
+
+                <button id="wind-btn" class="action-button wind-button">
+                    <div class="action-icon">💨</div>
+                    <div class="action-content">
+                        <h4>Adicionar Energia Eólica</h4>
+                        <p>Energia dos ventos! Custa $150</p>
+                    </div>
+                </button>
+
+                <button id="cleanup-btn" class="action-button cleanup-button">
+                    <div class="action-icon">🧹</div>
+                    <div class="action-content">
+                        <h4>Limpar o Planeta</h4>
+                        <p>Reduz a poluição! Custa $100</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Botão principal -->
+        <div id="main-action-section">
+            <button id="next-turn-btn" class="main-button">
+                <span class="button-icon">⏭️</span>
+                <span class="button-text">PRÓXIMO TURNO</span>
+            </button>
+        </div>
+
+        <!-- Mensagens do jogo -->
+        <div id="messages-section">
+            <h3>📝 O que aconteceu</h3>
+            <div id="message-list">
+                <div class="message welcome-message">
+                    🎉 Bem-vindo ao Planeta 2500! Clique nos botões acima para adicionar energia renovável e mantenha o planeta limpo!
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de tutorial -->
+        <div id="tutorial-modal" class="modal">
+            <div class="modal-content tutorial-content">
+                <h2>🚀 Como Jogar</h2>
+
+                <div class="tutorial-step" id="step-1">
+                    <h3>Passo 1: Entenda o Objetivo</h3>
+                    <p>Use o dinheiro para adicionar energia solar e eólica. Cada turno você ganha dinheiro automaticamente, mas precisa manter a energia equilibrada e a poluição baixa!</p>
+                    <button class="tutorial-next-btn">Próximo →</button>
+                </div>
+
+                <div class="tutorial-step hidden" id="step-2">
+                    <h3>Passo 2: Adicione Energia</h3>
+                    <p>Clique em "Adicionar Energia Solar" ou "Adicionar Energia Eólica". Energia solar é mais cara mas gera mais energia. Energia eólica é mais barata mas gera menos.</p>
+                    <button class="tutorial-next-btn">Próximo →</button>
+                </div>
+
+                <div class="tutorial-step hidden" id="step-3">
+                    <h3>Passo 3: Controle a Poluição</h3>
+                    <p>Se a poluição ficar alta demais (vermelha), use "Limpar o Planeta" para reduzir. Mas lembre-se: você precisa de dinheiro para isso também!</p>
+                    <button class="tutorial-next-btn">Próximo →</button>
+                </div>
+
+                <div class="tutorial-step hidden" id="step-4">
+                    <h3>Passo 4: Avance os Turnos</h3>
+                    <p>Clique em "PRÓXIMO TURNO" para avançar. Cada turno você ganha dinheiro, mas a poluição pode aumentar se você não cuidar bem do planeta!</p>
+                    <button class="tutorial-next-btn">Próximo →</button>
+                </div>
+
+                <div class="tutorial-step hidden" id="step-5">
+                    <h3>Passo 5: Vença o Jogo!</h3>
+                    <p>Sobreviva por 10 turnos com energia suficiente e poluição baixa. Boa sorte! 🌱</p>
+                    <button id="start-game-btn" class="tutorial-finish-btn">COMEÇAR A JOGAR! 🎮</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de fim de jogo -->
+        <div id="game-over-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="game-result-title">🎉 Parabéns!</h2>
+                <p id="game-result-message">Você conseguiu salvar o Planeta 2500!</p>
+                <button id="play-again-btn" class="main-button">Jogar Novamente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="game-simple.js"></script>
+</body>
+</html>
