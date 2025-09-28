@@ -4,7 +4,7 @@ Escolha sua experiência preferida neste jogo de gestão planetária sustentáve
 
 ## 🎮 VERSÕES DISPONÍVEIS
 
-### ⭐ [VERSÃO 3D AVANÇADA](index-3d.html) - **MAIS RECOMENDADA!**
+### ⭐ [VERSÃO 3D AVANÇADA](index.html) - **MAIS RECOMENDADA!**
 **Experiência imersiva completa com Three.js!**
 
 - 🌍 **Planeta 3D Renderizado**: Visualize o Planeta 2500 em 3D com atmosfera, nuvens e efeitos visuais
@@ -48,23 +48,24 @@ Escolha sua experiência preferida neste jogo de gestão planetária sustentáve
 
 ## 🚀 COMO JOGAR
 
-### Opção 1: Versão 3D (Recomendada)
+### Opção 1: Versão 3D (Principal - Recomendada)
 ```bash
 # Inicie o servidor
 python -m http.server 8000
 
 # Abra no navegador
-http://localhost:8000/index-3d.html
+http://localhost:8000/index.html
 ```
+**Esta é a versão principal do jogo com visualização 3D completa.**
 
 ### Opção 2: Versão Simples
 ```
 http://localhost:8000/index-simple.html
 ```
 
-### Opção 3: Versão Completa
+### Opção 3: Versão Completa (Original)
 ```
-http://localhost:8000/index.html
+http://localhost:8000/index-full.html
 ```
 
 ## 🎯 MECÂNICAS DE EQUILÍBRIO

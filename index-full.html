@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planeta 2500: Energia Sustentável</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Cabeçalho com título e controles principais -->
+        <header id="game-header">
+            <h1>Planeta 2500: Energia Sustentável</h1>
+            <div id="game-controls">
+                <button id="new-game-btn">Novo Jogo</button>
+                <button id="save-btn">Salvar</button>
+                <button id="load-btn">Carregar</button>
+            </div>
+        </header>
+
+        <!-- Painel principal do jogo -->
+        <div id="game-main">
+            <!-- Painel esquerdo com indicadores -->
+            <div id="left-panel">
+                <div id="turn-panel">
+                    <h2>Turno <span id="turn-number">1</span></h2>
+                </div>
+
+                <div id="indicators-panel">
+                    <div class="indicator">
+                        <label>Créditos</label>
+                        <div class="bar-container">
+                            <div id="credits-bar" class="bar economy-bar" style="width: 100%"></div>
+                            <span id="credits-value" class="bar-value">1000</span>
+                        </div>
+                    </div>
+
+                    <div class="indicator">
+                        <label>Poluição</label>
+                        <div class="bar-container">
+                            <div id="pollution-bar" class="bar negative-bar" style="width: 0%"></div>
+                            <span id="pollution-value" class="bar-value">0</span>
+                        </div>
+                    </div>
+
+                    <div class="indicator">
+                        <label>Temperatura</label>
+                        <div class="bar-container">
+                            <div id="temperature-bar" class="bar negative-bar" style="width: 20%"></div>
+                            <span id="temperature-value" class="bar-value">20°C</span>
+                        </div>
+                    </div>
+
+                    <div class="indicator">
+                        <label>Popularidade</label>
+                        <div class="bar-container">
+                            <div id="popularity-bar" class="bar positive-bar" style="width: 50%"></div>
+                            <span id="popularity-value" class="bar-value">50%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="energy-panel">
+                    <h3>Energia</h3>
+                    <div class="energy-info">
+                        <div class="energy-source">
+                            <span class="source-label">Solar:</span>
+                            <span id="solar-capacity">0 MW</span>
+                        </div>
+                        <div class="energy-source">
+                            <span class="source-label">Eólica:</span>
+                            <span id="wind-capacity">0 MW</span>
+                        </div>
+                        <div class="energy-source">
+                            <span class="source-label">Hidro:</span>
+                            <span id="hydro-capacity">0 MW</span>
+                        </div>
+                        <div class="energy-source">
+                            <span class="source-label">Geotérmica:</span>
+                            <span id="geo-capacity">0 MW</span>
+                        </div>
+                        <div class="energy-source">
+                            <span class="source-label">Fóssil:</span>
+                            <span id="fossil-capacity">50 MW</span>
+                        </div>
+                        <div class="energy-balance">
+                            <span class="balance-label">Produção:</span>
+                            <span id="production-total">45 MW</span>
+                        </div>
+                        <div class="energy-balance">
+                            <span class="balance-label">Consumo:</span>
+                            <span id="consumption-total">50 MW</span>
+                        </div>
+                        <div class="energy-balance">
+                            <span class="balance-label">Armazenamento:</span>
+                            <span id="storage-total">0 MW</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas central do planeta -->
+            <div id="center-panel">
+                <canvas id="planet-canvas" width="400" height="400"></canvas>
+                <div id="planet-status">
+                    <div class="status-item">
+                        <span class="status-label">Estado do Planeta:</span>
+                        <span id="planet-condition" class="status-value">Estável</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel direito com ações -->
+            <div id="right-panel">
+                <div id="actions-panel">
+                    <h3>Ações Disponíveis</h3>
+                    <div class="action-buttons">
+                        <button id="expand-solar-btn" class="action-btn energy-btn" data-tooltip="Expandir energia solar (+10 MW, -200 créditos, +poluição leve)">
+                            Expandir Solar
+                        </button>
+                        <button id="expand-wind-btn" class="action-btn energy-btn" data-tooltip="Expandir energia eólica (+10 MW, -150 créditos)">
+                            Expandir Eólica
+                        </button>
+                        <button id="expand-hydro-btn" class="action-btn energy-btn" data-tooltip="Expandir energia hidro (+15 MW, -300 créditos)">
+                            Expandir Hidro
+                        </button>
+                        <button id="expand-geo-btn" class="action-btn energy-btn" data-tooltip="Expandir energia geotérmica (+8 MW, -250 créditos)">
+                            Expandir Geotérmica
+                        </button>
+                        <button id="reduce-fossil-btn" class="action-btn energy-btn" data-tooltip="Reduzir energia fóssil (-5 MW, +popularidade)">
+                            Reduzir Fóssil
+                        </button>
+                        <button id="invest-research-btn" class="action-btn economy-btn" data-tooltip="Investir em pesquisa (-100 créditos, +descobertas)">
+                            Investir Pesquisa
+                        </button>
+                        <button id="public-campaign-btn" class="action-btn society-btn" data-tooltip="Campanha pública (-50 créditos, +popularidade)">
+                            Campanha Pública
+                        </button>
+                        <button id="environmental-program-btn" class="action-btn environment-btn" data-tooltip="Programa ambiental (-150 créditos, -poluição)">
+                            Programa Ambiental
+                        </button>
+                    </div>
+                </div>
+
+                <div id="end-turn-panel">
+                    <button id="end-turn-btn" class="primary-btn">Encerrar Turno</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Painel inferior com log -->
+        <div id="bottom-panel">
+            <div id="log-panel">
+                <h3>Log de Eventos</h3>
+                <div id="log-container">
+                    <div class="log-entry info">Jogo iniciado. Bem-vindo ao Planeta 2500!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para decisões -->
+        <div id="decision-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="decision-title">Decisão Importante</h2>
+                <p id="decision-description">Uma decisão crítica precisa ser tomada.</p>
+                <div class="decision-options">
+                    <button id="decision-accept-btn" class="decision-btn accept-btn">Aceitar</button>
+                    <button id="decision-reject-btn" class="decision-btn reject-btn">Rejeitar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de vitória/derrota -->
+        <div id="game-over-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="game-over-title">Fim do Jogo</h2>
+                <p id="game-over-message">Mensagem do resultado.</p>
+                <div class="game-over-options">
+                    <button id="play-again-btn" class="primary-btn">Jogar Novamente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts do jogo -->
+    <script type="module" src="src/utils/rng.js"></script>
+    <script type="module" src="src/utils/format.js"></script>
+    <script type="module" src="src/utils/storage.js"></script>
+    <script type="module" src="src/core/rules.js"></script>
+    <script type="module" src="src/core/state.js"></script>
+    <script type="module" src="src/core/energy.js"></script>
+    <script type="module" src="src/core/economy.js"></script>
+    <script type="module" src="src/core/environment.js"></script>
+    <script type="module" src="src/core/society.js"></script>
+    <script type="module" src="src/core/victory.js"></script>
+    <script type="module" src="src/core/events.js"></script>
+    <script type="module" src="src/core/decisions.js"></script>
+    <script type="module" src="src/core/engine.js"></script>
+    <script type="module" src="src/ui/ui_log.js"></script>
+    <script type="module" src="src/ui/ui_canvas.js"></script>
+    <script type="module" src="src/ui/ui_modal.js"></script>
+    <script type="module" src="src/ui/ui_layout.js"></script>
+    <script type="module" src="src/ui/ui_bindings.js"></script>
+</body>
+</html>
